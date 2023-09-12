@@ -1,9 +1,8 @@
 /* App.css */
 body {
   font-family: Arial, sans-serif;
-  background-color: #220909; /* Set the background color for the entire page */
-  margin: 0;
-  padding: 0;
+  background-color: #00FFFF; 
+ 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,23 +39,15 @@ input[type="email"],
 input[type="password"] {
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #c9bbbb;
+  border: 1px solid #040303;
   border-radius: 3px;
   font-size: 16px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  font-size: 16px;
-  cursor: pointer;
+  background-color: #fff;
+  color: #040303;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #11abab;
 }
 
 p {

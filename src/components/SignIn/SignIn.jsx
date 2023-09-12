@@ -64,7 +64,7 @@ function SignInForm() {
           <button type="submit">Login</button>
         </div>
       </form>
-      <p>Don't have an account? <Link to="/signup">Signup here</Link></p>
+      <p>Need an account? <Link to="/signup">Signup</Link></p>
     </div>
   );
 }
