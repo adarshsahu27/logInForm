@@ -40,7 +40,7 @@ function SignInForm() {
 
   return (
     <div className='card'>
-      <h2>Login</h2>
+      <h2>SignIn</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Email:</label>
@@ -61,7 +61,7 @@ function SignInForm() {
           <span style={{ color: 'red' }}>{passwordError}</span>
         </div>
         <div>
-          <button type="submit">Login</button>
+          <button type="submit">SignIn</button>
         </div>
       </form>
       <p>Need an account? <Link to="/signup">Signup</Link></p>

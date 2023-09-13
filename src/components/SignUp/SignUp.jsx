@@ -21,6 +21,11 @@ function SignupForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(formData.email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
   };
 
   return (
@@ -28,6 +33,15 @@ function SignupForm() {
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <div>
+          <div>
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </div>
           <label>Email:</label>
           <input
             type="email"
@@ -46,16 +60,7 @@ function SignupForm() {
           />
         </div>
         <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Number:</label>
+          <label>Contact Number:</label>
           <input
             type="text"
             name="number"
@@ -86,7 +91,7 @@ function SignupForm() {
         </div>
       </form>
       <p>
-        Already a user? <Link to="/">Login</Link>
+        Already a user? <Link to="/">SignIn</Link>
       </p>
     </div>
   );
