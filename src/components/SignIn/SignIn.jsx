@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SignIn } from "../../services/auth.service";
+import { toast } from "react-hot-toast";
 
 function SignInForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -52,17 +54,13 @@ function SignInForm() {
     if (!emailPattern.test(formData.email)) {
       alert("Invalid email format");
     } else {
-      try {
-        const result = await SignIn(formData);
-        if (result.status === 200) {
-          console.log("SignIn Successful", result.data);
-        } else if (result.status === 400) {
-          console.log("SignIn Error", result.data);
-        } else {
-          console.log("Error while Signing In");
-        }
-      } catch (error) {
-        alert(error);
+      const response = await SignIn(formData);
+      if (response.isSuccess) {
+        toast.success(response.message, { duration: 3000 });
+        localStorage.setItem("token", JSON.stringify(response.data.token));
+        navigate("/dashboard")
+      } else {
+        toast.error(response.message, { duration: 3000 });
       }
     }
   };

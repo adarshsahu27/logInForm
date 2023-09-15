@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { SignUp } from "../../services/auth.service";
+import { toast } from "react-hot-toast";
 function SignupForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,12 +21,19 @@ function SignupForm() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailPattern.test(formData.email)) {
       setEmailError("Invalid email format");
-      return;
+    } else {
+      const response = await SignUp(formData);
+      if (response.isSuccess) {
+        toast.success(response.message, { duration: 3000 });
+        navigate("/");
+      } else {
+        toast.error(response.message, { duration: 3000 });
+      }
     }
   };
 
