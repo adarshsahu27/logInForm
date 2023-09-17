@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignIn } from "../../services/auth.service";
 import { toast } from "react-hot-toast";
+import AuthContext from "../../context/auth.context";
 
 function SignInForm() {
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,36 +21,6 @@ function SignInForm() {
     });
   };
 
-  // const handleEmailChange = (event) => {
-  //   setEmail(event.target.value);
-  //   setEmailError("");
-  // };
-
-  // const handlePasswordChange = (event) => {
-  //   setPassword(event.target.value);
-  //   setPasswordError("");
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   if (!email) {
-  //     setEmailError("Email is required");
-  //     return;
-  //   }
-
-  //   if (!password) {
-  //     setPasswordError("Password is required");
-  //     return;
-  //   }
-
-  //   const emailPattern = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/";
-  //   if (!emailPattern.test(email)) {
-  //     setEmailError("Invalid email format");
-  //     return;
-  //   }
-  //   console.log("Login successful");
-  // };
   const handleSubmit = async (event) => {
     event.preventDefault();
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -58,7 +31,8 @@ function SignInForm() {
       if (response.isSuccess) {
         toast.success(response.message, { duration: 3000 });
         localStorage.setItem("token", JSON.stringify(response.data.token));
-        navigate("/dashboard")
+        setIsAuthenticated(true);
+        navigate("/dashboard");
       } else {
         toast.error(response.message, { duration: 3000 });
       }

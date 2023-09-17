@@ -4,14 +4,41 @@ import "./App.css";
 import SignInForm from "./components/SignIn/SignIn";
 import SignupForm from "./components/SignUp/SignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
+import GuestGuard from "./guards/GuestGuard";
+import AuthGuard from "./guards/AuthGuard";
+import { AuthProvider } from "./context/auth.context";
 
 function App() {
   return (
-    <Routes>
-      <Route exact path="/" element={<SignInForm />} />
-      <Route path="/signUp" element={<SignupForm />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <GuestGuard>
+              <SignInForm />
+            </GuestGuard>
+          }
+        />
+        <Route
+          path="/signUp"
+          element={
+            <GuestGuard>
+              <SignupForm />
+            </GuestGuard>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <AuthGuard>
+              <Dashboard />
+            </AuthGuard>
+          }
+        />
+      </Routes>
+    </AuthProvider>
   );
 }
 
